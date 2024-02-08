@@ -1,4 +1,8 @@
+#include "./classes/MQTT.h"
+#include "./classes/WIFI.h"
 #include <Arduino.h>
+
+/* #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
@@ -106,4 +110,19 @@ void callback(char* topic, byte* payload, unsigned int length){
     Serial.print((char) payload[i]);
   }
   Serial.println("\n ------------------------------");
-};
+}; */
+
+
+MQTT mqtt("T-aaago");
+  
+void setup(){
+  Serial.begin(115200);
+  ConnectWifi();
+  mqtt.connectMQTT();
+}
+
+void loop(){
+ if(mqtt.mqttStatus){
+    mqtt.client->loop();
+ }
+}
